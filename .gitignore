@@ -1,3 +1,10 @@
+myEnv/
+instance/
+migrations/
+scripts/
+dev_tools/
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

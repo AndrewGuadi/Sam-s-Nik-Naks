@@ -1,0 +1,98 @@
+<!-- ================================
+File: templates/base.html
+Purpose: Global layout with Tailwind, SEO, a11y, and JS hooks
+================================ -->
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Sam's Nik Naks{% endblock %}</title>
+    <meta name="description" content="Hand-picked nik naks, limited drops, fast shipping from PA." />
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+    <!-- Tailwind CDN for dev; swap to compiled CSS in production -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ["Inter", "ui-sans-serif", "system-ui", "-apple-system", "Segoe UI", "Roboto", "Arial", "sans-serif"] },
+                    colors: {
+                        brand: {
+                            50: "#f2fbff",
+                            100: "#e6f6ff",
+                            200: "#bfe8ff",
+                            300: "#99dbff",
+                            400: "#33b8ff",
+                            500: "#009eea",
+                            600: "#007bb7",
+                            700: "#005a86",
+                            800: "#003a56",
+                            900: "#001b29"
+                        }
+                    },
+                    boxShadow: {
+                        card: "0 8px 20px rgba(0,0,0,0.08)",
+                    }
+                }
+            }
+        }
+    </script>
+    {% block head_extra %}{% endblock %}
+</head>
+
+
+<body class="bg-white text-slate-900 antialiased">
+    <a href="#main"
+        class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-brand-600 text-white px-3 py-2 rounded">Skip
+        to content</a>
+
+
+    <!-- Site Header -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="flex h-16 items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <a href="{{ url_for('main.home') }}" class="flex items-center gap-2">
+                        <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="Sam's Nik Naks logo"
+                            class="h-8 w-8" />
+                        <span class="font-semibold tracking-tight">Sam's Nik Naks</span>
+                    </a>
+                </div>
+                <nav class="hidden md:flex items-center gap-6 text-sm">
+                    <a class="hover:text-brand-700" href="{{ url_for('main.shop') }}">Shop</a>
+                    <a class="hover:text-brand-700" href="{{ url_for('main.about') }}">About</a>
+                    <a class="hover:text-brand-700" href="{{ url_for('main.faq') }}">FAQ</a>
+                    <a class="hover:text-brand-700" href="{{ url_for('main.contact') }}">Contact</a>
+                </nav>
+                <div class="flex items-center gap-3">
+                    <a href="{{ url_for('main.cart') }}" class="relative inline-flex items-center" aria-label="Cart">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
+                            <path d="M3 3h2l.4 2M7 13h10l4-8H5.4" />
+                            <circle cx="9" cy="21" r="1" />
+                            <circle cx="20" cy="21" r="1" />
+                        </svg>
+                        <span id="cart-count" class="ml-1 text-sm">{{ cart_count or 0 }}</span>
+                    </a>
+                    <button id="mobileToggle"
+                        class="md:hidden inline-flex items-center justify-center rounded-lg p-2 hover:bg-slate-100"
+                        aria-controls="primary-menu" aria-expanded="false" aria-label="Toggle Menu">
+                        <svg id="iconOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <svg id="iconClose" xmlns="http://www.w3.org/2000/svg" class="hidden h-6 w-6"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+
+</html>
