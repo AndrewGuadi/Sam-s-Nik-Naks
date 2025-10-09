@@ -68,60 +68,69 @@ def home():  # url_for('main.home') used by the logo link in base.html
 @main.route("/shop/<category>")
 def shop(category=None):  # url_for('main.shop', category='limited')
     products = _demo_products()
-    title = "Shop" if not category else f"Shop — {category.capitalize()}"
-    body = f"Showing products{(' in ' + category) if category else ''}."
-    return _render_placeholder(title, body)
+    return render_template(
+        "shop.html",
+        products=products,
+        category=category,
+        cart_count=0,
+        current_year=2025,
+    )
 
 # Product detail
 @main.route("/product/<slug>")
 def product(slug):  # url_for('main.product', slug='sticker-pack')
-    body = f"Product detail placeholder for “{slug}”."
-    return _render_placeholder("Product", body)
+    product = next((p for p in _demo_products() if p["slug"] == slug), None)
+    return render_template(
+        "product.html",
+        product=product,
+        cart_count=0,
+        current_year=2025,
+    )
 
 # ---------- Static content pages ----------
 @main.route("/about")
 def about():  # url_for('main.about')
-    return _render_placeholder("About")
+    return render_template("about.html", cart_count=0, current_year=2025)
 
 @main.route("/faq")
 def faq():  # url_for('main.faq')
-    return _render_placeholder("FAQ")
+    return render_template("faq.html", cart_count=0, current_year=2025)
 
 @main.route("/reviews")
 def reviews():  # url_for('main.reviews')
-    return _render_placeholder("Reviews")
+    return render_template("reviews.html", reviews=_demo_reviews(), cart_count=0, current_year=2025)
 
 @main.route("/contact", methods=["GET", "POST"])
 def contact():  # url_for('main.contact')
     if request.method == "POST":
         # Handle contact form here later
         return redirect(url_for("main.contact"))
-    return _render_placeholder("Contact", "Drop us a line. (Form coming soon)")
+    return render_template("contact.html", cart_count=0, current_year=2025)
 
 @main.route("/privacy")
 def privacy():  # url_for('main.privacy')
-    return _render_placeholder("Privacy Policy")
+    return render_template("privacy.html", cart_count=0, current_year=2025)
 
 @main.route("/returns")
 def returns():  # url_for('main.returns')
-    return _render_placeholder("Returns & Exchanges")
+    return render_template("returns.html", cart_count=0, current_year=2025)
 
 # Visit/Local pages if you add them later
 @main.route("/visit")
 def visit():
-    return _render_placeholder("Visit Us")
+    return render_template("visit.html", cart_count=0, current_year=2025)
 
 # ---------- Cart / Checkout (stubs) ----------
 @main.route("/cart")
 def cart():  # url_for('main.cart')
-    return _render_placeholder("Your Cart", "Cart UI coming soon.")
+    return render_template("cart.html", cart_count=0, current_year=2025)
 
 @main.route("/checkout", methods=["GET", "POST"])
 def checkout():
     if request.method == "POST":
         # Kick off Stripe etc. later
         return redirect(url_for("main.index"))
-    return _render_placeholder("Checkout", "Secure checkout coming soon.")
+    return render_template("checkout.html", cart_count=0, current_year=2025)
 
 # ---------- Form endpoints used by footer/CTA ----------
 @main.route("/subscribe", methods=["POST"])
