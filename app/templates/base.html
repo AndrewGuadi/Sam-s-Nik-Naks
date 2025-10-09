@@ -4,7 +4,6 @@ Purpose: Global layout with Tailwind, SEO, a11y, and JS hooks
 ================================ -->
 <!doctype html>
 <html lang="en" class="scroll-smooth">
-
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -14,7 +13,6 @@ Purpose: Global layout with Tailwind, SEO, a11y, and JS hooks
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
 
     <!-- Tailwind CDN for dev; swap to compiled CSS in production -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -46,13 +44,8 @@ Purpose: Global layout with Tailwind, SEO, a11y, and JS hooks
     </script>
     {% block head_extra %}{% endblock %}
 </head>
-
-
 <body class="bg-white text-slate-900 antialiased">
-    <a href="#main"
-        class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-brand-600 text-white px-3 py-2 rounded">Skip
-        to content</a>
-
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-brand-600 text-white px-3 py-2 rounded">Skip to content</a>
 
     <!-- Site Header -->
     <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
@@ -60,12 +53,11 @@ Purpose: Global layout with Tailwind, SEO, a11y, and JS hooks
             <div class="flex h-16 items-center justify-between">
                 <div class="flex items-center gap-3">
                     <a href="{{ url_for('main.home') }}" class="flex items-center gap-2">
-                        <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="Sam's Nik Naks logo"
-                            class="h-8 w-8" />
+                        <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="Sam's Nik Naks logo" class="h-8 w-8" />
                         <span class="font-semibold tracking-tight">Sam's Nik Naks</span>
                     </a>
                 </div>
-                <nav class="hidden md:flex items-center gap-6 text-sm">
+                <nav class="hidden md:flex items-center gap-6 text-sm" aria-label="Primary">
                     <a class="hover:text-brand-700" href="{{ url_for('main.shop') }}">Shop</a>
                     <a class="hover:text-brand-700" href="{{ url_for('main.about') }}">About</a>
                     <a class="hover:text-brand-700" href="{{ url_for('main.faq') }}">FAQ</a>
@@ -80,19 +72,76 @@ Purpose: Global layout with Tailwind, SEO, a11y, and JS hooks
                         </svg>
                         <span id="cart-count" class="ml-1 text-sm">{{ cart_count or 0 }}</span>
                     </a>
-                    <button id="mobileToggle"
-                        class="md:hidden inline-flex items-center justify-center rounded-lg p-2 hover:bg-slate-100"
-                        aria-controls="primary-menu" aria-expanded="false" aria-label="Toggle Menu">
-                        <svg id="iconOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 6h16M4 12h16M4 18h16" />
+                    <button id="mobileToggle" class="md:hidden inline-flex items-center justify-center rounded-lg p-2 hover:bg-slate-100" aria-controls="primary-menu" aria-expanded="false" aria-label="Toggle Menu">
+                        <svg id="iconOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
-                        <svg id="iconClose" xmlns="http://www.w3.org/2000/svg" class="hidden h-6 w-6"
-                            viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12" />
+                        <svg id="iconClose" xmlns="http://www.w3.org/2000/svg" class="hidden h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <nav id="primary-menu" class="md:hidden hidden border-t border-slate-200 bg-white" aria-label="Mobile Primary">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 space-y-2">
+                <a class="block px-2 py-2 rounded hover:bg-slate-50" href="{{ url_for('main.shop') }}">Shop</a>
+                <a class="block px-2 py-2 rounded hover:bg-slate-50" href="{{ url_for('main.about') }}">About</a>
+                <a class="block px-2 py-2 rounded hover:bg-slate-50" href="{{ url_for('main.faq') }}">FAQ</a>
+                <a class="block px-2 py-2 rounded hover:bg-slate-50" href="{{ url_for('main.contact') }}">Contact</a>
+            </div>
+        </nav>
+    </header>
 
+    <!-- Main content -->
+    <main id="main" tabindex="-1">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-24 border-t border-slate-200 bg-white">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid gap-10 md:grid-cols-2">
+                <div>
+                    <h3 class="text-lg font-semibold">Stay in the loop</h3>
+                    <p class="mt-2 text-slate-600">Get drop announcements and local pop-up dates.</p>
+                    <form class="mt-4 flex gap-3" action="{{ url_for('main.subscribe') }}" method="post">
+                        <label for="email" class="sr-only">Email</label>
+                        <input id="email" name="email" type="email" required placeholder="you@example.com" class="flex-1 rounded-lg border border-slate-300 px-3 py-2" />
+                        <button class="rounded-lg bg-slate-900 px-5 py-2 text-white hover:bg-slate-800">Subscribe</button>
+                    </form>
+                </div>
+                <div class="md:text-right">
+                    <nav class="space-x-4 text-sm">
+                        <a class="hover:underline" href="{{ url_for('main.privacy') }}">Privacy</a>
+                        <a class="hover:underline" href="{{ url_for('main.returns') }}">Returns</a>
+                        <a class="hover:underline" href="{{ url_for('main.reviews') }}">Reviews</a>
+                    </nav>
+                    <p class="mt-4 text-sm text-slate-500">© {{ current_year|default(2025) }} Sam's Nik Naks</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            const toggle = document.getElementById('mobileToggle');
+            if (!toggle) return;
+            const menu = document.getElementById('primary-menu');
+            const iconOpen = document.getElementById('iconOpen');
+            const iconClose = document.getElementById('iconClose');
+            toggle.addEventListener('click', function () {
+                const isHidden = menu.classList.contains('hidden');
+                menu.classList.toggle('hidden');
+                iconOpen.classList.toggle('hidden', !isHidden);
+                iconClose.classList.toggle('hidden', isHidden);
+                const expanded = !isHidden;
+                toggle.setAttribute('aria-expanded', String(expanded));
+            });
+        })();
+    </script>
+
+    {% block scripts_extra %}{% endblock %}
+</body>
 </html>
