@@ -1,10 +1,166 @@
 {% extends 'base.html' %}
 {% block title %}Privacy Policy - Sam's Nik Naks{% endblock %}
 {% block content %}
-<section class="py-16">
-  <div class="mx-auto max-w-3xl px-4">
-    <h1 class="text-3xl font-bold">Privacy Policy</h1>
-    <p class="mt-4 text-slate-700">Our policy on data collection and usage will go here.</p>
+
+<!-- Hero -->
+<section class="relative bg-gradient-to-b from-slate-900 to-slate-800 text-white py-20">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight">Privacy Policy</h1>
+    <p class="mt-4 text-lg text-slate-200 max-w-3xl">Your trust matters. This policy explains what we collect, how we use it, and the choices you have. It applies to all visits and purchases on our website.</p>
+    <p class="mt-2 text-sm text-slate-300">Last updated: October 2025</p>
   </div>
 </section>
+
+<!-- Quick Nav -->
+<section class="bg-white py-6 border-b border-slate-200">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <nav class="flex flex-wrap gap-3 text-sm">
+      <a class="px-3 py-1 rounded-full bg-slate-100 hover:bg-slate-200" href="#info-we-collect">Information We Collect</a>
+      <a class="px-3 py-1 rounded-full bg-slate-100 hover:bg-slate-200" href="#how-we-use">How We Use Info</a>
+      <a class="px-3 py-1 rounded-full bg-slate-100 hover:bg-slate-200" href="#sharing">Sharing</a>
+      <a class="px-3 py-1 rounded-full bg-slate-100 hover:bg-slate-200" href="#cookies">Cookies</a>
+      <a class="px-3 py-1 rounded-full bg-slate-100 hover:bg-slate-200" href="#marketing">Marketing</a>
+      <a class="px-3 py-1 rounded-full bg-slate-100 hover:bg-slate-200" href="#retention">Retention</a>
+      <a class="px-3 py-1 rounded-full bg-slate-100 hover:bg-slate-200" href="#your-rights">Your Rights</a>
+      <a class="px-3 py-1 rounded-full bg-slate-100 hover:bg-slate-200" href="#security">Security</a>
+      <a class="px-3 py-1 rounded-full bg-slate-100 hover:bg-slate-200" href="#children">Children</a>
+      <a class="px-3 py-1 rounded-full bg-slate-100 hover:bg-slate-200" href="#changes">Changes</a>
+      <a class="px-3 py-1 rounded-full bg-slate-100 hover:bg-slate-200" href="#contact">Contact</a>
+    </nav>
+  </div>
+</section>
+
+<!-- Content sections -->
+<section id="info-we-collect" class="py-16 bg-white">
+  <div class="mx-auto max-w-4xl px-6 lg:px-8">
+    <h2 class="text-2xl font-bold">Information We Collect</h2>
+    <p class="mt-3 text-slate-700">We collect information to process orders, support you, and improve our site.</p>
+    <div class="mt-6 grid gap-6 sm:grid-cols-2">
+      <div class="bg-white rounded-xl shadow-card p-6">
+        <h3 class="font-semibold">Information you provide</h3>
+        <ul class="mt-2 list-disc list-inside text-slate-700 text-sm">
+          <li>Account and contact details (name, email, billing/shipping addresses)</li>
+          <li>Order details (items, notes, gift messages)</li>
+          <li>Messages sent via our <a href="{{ url_for('main.contact') }}" class="text-brand-700 hover:underline">contact</a> form</li>
+        </ul>
+      </div>
+      <div class="bg-white rounded-xl shadow-card p-6">
+        <h3 class="font-semibold">Information collected automatically</h3>
+        <ul class="mt-2 list-disc list-inside text-slate-700 text-sm">
+          <li>Device and usage data (IP address, browser, pages viewed)</li>
+          <li>Approximate location (derived from IP)</li>
+          <li>Cookies and similar technologies for session and analytics</li>
+        </ul>
+      </div>
+      <div class="bg-white rounded-xl shadow-card p-6">
+        <h3 class="font-semibold">Information from third parties</h3>
+        <ul class="mt-2 list-disc list-inside text-slate-700 text-sm">
+          <li>Payment processors (payment status, limited card details—never full card numbers)</li>
+          <li>Shipping carriers (tracking info, delivery confirmations)</li>
+          <li>Analytics providers (aggregate site performance and usage)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how-we-use" class="py-16 bg-slate-50">
+  <div class="mx-auto max-w-4xl px-6 lg:px-8">
+    <h2 class="text-2xl font-bold">How We Use Information</h2>
+    <ul class="mt-3 space-y-2 text-slate-700">
+      <li>• Process, fulfill, and deliver your orders</li>
+      <li>• Provide support, respond to inquiries, and handle returns</li>
+      <li>• Personalize content and remember preferences</li>
+      <li>• Improve our products, operations, and website performance</li>
+      <li>• Send transactional communications (order, shipping, policy updates)</li>
+      <li>• With your consent, send marketing messages you can opt out of anytime</li>
+      <li>• Comply with legal obligations and enforce policies</li>
+    </ul>
+  </div>
+</section>
+
+<section id="sharing" class="py-16 bg-white">
+  <div class="mx-auto max-w-4xl px-6 lg:px-8">
+    <h2 class="text-2xl font-bold">How We Share Information</h2>
+    <p class="mt-3 text-slate-700">We do not sell personal information. We share with:</p>
+    <ul class="mt-3 list-disc list-inside text-slate-700">
+      <li>Service providers under contract (payment processing, hosting, analytics, shipping)</li>
+      <li>Authorities, when required by law or to protect our rights and safety</li>
+      <li>Successors in a business transfer, subject to this policy</li>
+    </ul>
+  </div>
+</section>
+
+<section id="cookies" class="py-16 bg-slate-50">
+  <div class="mx-auto max-w-4xl px-6 lg:px-8">
+    <h2 class="text-2xl font-bold">Cookies & Analytics</h2>
+    <p class="mt-3 text-slate-700">We use cookies to power the cart, keep you signed in, and measure site performance.</p>
+    <div class="mt-6 grid gap-6 sm:grid-cols-3 text-sm">
+      <div class="bg-white rounded-xl shadow-card p-5">
+        <h3 class="font-semibold">Essential</h3>
+        <p class="mt-2 text-slate-700">Required for core functionality like checkout and security.</p>
+      </div>
+      <div class="bg-white rounded-xl shadow-card p-5">
+        <h3 class="font-semibold">Performance</h3>
+        <p class="mt-2 text-slate-700">Helps us understand traffic, pages visited, and errors.</p>
+      </div>
+      <div class="bg-white rounded-xl shadow-card p-5">
+        <h3 class="font-semibold">Marketing</h3>
+        <p class="mt-2 text-slate-700">Used (if enabled) to deliver and measure promotions.</p>
+      </div>
+    </div>
+    <p class="mt-4 text-sm text-slate-600">You can adjust browser settings to limit or delete cookies. Some features may not work without essential cookies.</p>
+  </div>
+</section>
+
+<section id="marketing" class="py-16 bg-white">
+  <div class="mx-auto max-w-4xl px-6 lg:px-8">
+    <h2 class="text-2xl font-bold">Marketing Preferences</h2>
+    <p class="mt-3 text-slate-700">You can opt out of marketing emails by using the unsubscribe link in any message. Transactional emails about your orders will still be sent.</p>
+  </div>
+</section>
+
+<section id="retention" class="py-16 bg-slate-50">
+  <div class="mx-auto max-w-4xl px-6 lg:px-8">
+    <h2 class="text-2xl font-bold">Data Retention</h2>
+    <p class="mt-3 text-slate-700">We keep information only as long as necessary for the purposes described in this policy, to comply with our legal obligations, resolve disputes, and enforce agreements.</p>
+  </div>
+</section>
+
+<section id="your-rights" class="py-16 bg-white">
+  <div class="mx-auto max-w-4xl px-6 lg:px-8">
+    <h2 class="text-2xl font-bold">Your Privacy Rights</h2>
+    <p class="mt-3 text-slate-700">Depending on your location, you may have rights such as access, correction, deletion, portability, and restriction/objection to processing. You may also have the right to opt out of certain data sharing.</p>
+    <p class="mt-3 text-slate-700">To exercise rights, please <a href="{{ url_for('main.contact') }}" class="text-brand-700 hover:underline">contact us</a>. We may verify your request to protect your information.</p>
+  </div>
+</section>
+
+<section id="security" class="py-16 bg-slate-50">
+  <div class="mx-auto max-w-4xl px-6 lg:px-8">
+    <h2 class="text-2xl font-bold">Security</h2>
+    <p class="mt-3 text-slate-700">We implement reasonable technical and organizational measures to protect your information. No method of transmission or storage is 100% secure.</p>
+  </div>
+</section>
+
+<section id="children" class="py-16 bg-white">
+  <div class="mx-auto max-w-4xl px-6 lg:px-8">
+    <h2 class="text-2xl font-bold">Children's Privacy</h2>
+    <p class="mt-3 text-slate-700">Our site is not directed to children under 13, and we do not knowingly collect personal information from children.</p>
+  </div>
+</section>
+
+<section id="changes" class="py-16 bg-slate-50">
+  <div class="mx-auto max-w-4xl px-6 lg:px-8">
+    <h2 class="text-2xl font-bold">Changes to This Policy</h2>
+    <p class="mt-3 text-slate-700">We may update this policy to reflect changes to our practices or for legal reasons. We will post the updated policy with a new "Last updated" date.</p>
+  </div>
+</section>
+
+<section id="contact" class="py-16 bg-white">
+  <div class="mx-auto max-w-4xl px-6 lg:px-8">
+    <h2 class="text-2xl font-bold">Contact Us</h2>
+    <p class="mt-3 text-slate-700">Questions about this policy? <a href="{{ url_for('main.contact') }}" class="text-brand-700 hover:underline">Get in touch</a> and we'll be happy to help.</p>
+  </div>
+</section>
+
 {% endblock %}

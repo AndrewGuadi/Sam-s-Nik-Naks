@@ -1,10 +1,126 @@
 {% extends 'base.html' %}
 {% block title %}About - Sam's Nik Naks{% endblock %}
 {% block content %}
-<section class="py-16">
-  <div class="mx-auto max-w-3xl px-4">
-    <h1 class="text-3xl font-bold">About</h1>
-    <p class="mt-4 text-slate-700">This page will share our story and process. Content coming soon.</p>
+
+<!-- Hero -->
+<section class="relative bg-gradient-to-b from-slate-900 to-slate-800 text-white py-24">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
+    <div>
+      <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight">Hand‑Crafted Resin Goods from Central PA</h1>
+      <p class="mt-4 text-lg text-slate-200">Small-batch drops, thoughtful materials, and pieces that spark joy. Everything we make is poured, cured, and finished in our studio.</p>
+      <div class="mt-8 flex gap-4">
+        <a href="{{ url_for('main.shop') }}" class="rounded-xl bg-brand-600 px-6 py-3 text-white hover:bg-brand-700">Shop New Arrivals</a>
+        <a href="{{ url_for('main.about') }}#values" class="rounded-xl border border-white/40 px-6 py-3 hover:bg-white/10">Our Values</a>
+      </div>
+    </div>
+    <div class="relative">
+      <img src="{{ url_for('static', filename='img/hero.jpg') }}" alt="Resin artwork in the studio" class="w-full rounded-2xl shadow-card object-cover">
+      <div class="absolute -bottom-4 -right-4 hidden sm:block rounded-xl bg-white/10 px-4 py-2 text-sm backdrop-blur">Made in PA</div>
+    </div>
   </div>
 </section>
+
+<!-- Values -->
+<section id="values" class="bg-white py-20">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <h2 class="text-3xl font-bold">What We Stand For</h2>
+    <p class="mt-3 text-slate-700 max-w-2xl">We build goods meant to be used and loved. That means durable materials, clean design, and responsible practices.</p>
+
+    <div class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="bg-white rounded-2xl shadow-card p-6">
+        <div class="h-10 w-10 rounded-lg bg-brand-100 text-brand-700 flex items-center justify-center">
+          <!-- Hammer icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5"><path d="M2 21l9-9-1-1-9 9v1h1zM14.7 3.3l6 6-2 2-6-6 2-2zM12 6l6 6"/></svg>
+        </div>
+        <h3 class="mt-4 font-semibold">Craftsmanship</h3>
+        <p class="mt-2 text-sm text-slate-600">Every pour, demold, and polish is done in-house with attention to detail.</p>
+      </div>
+      <div class="bg-white rounded-2xl shadow-card p-6">
+        <div class="h-10 w-10 rounded-lg bg-brand-100 text-brand-700 flex items-center justify-center">
+          <!-- Leaf icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5"><path d="M5 3a9 9 0 1014 14c2-2 2-7 2-7s-5 0-7 2A9 9 0 005 3z"/></svg>
+        </div>
+        <h3 class="mt-4 font-semibold">Thoughtful Materials</h3>
+        <p class="mt-2 text-sm text-slate-600">We source high-quality resin and pigments designed for longevity and safety.</p>
+      </div>
+      <div class="bg-white rounded-2xl shadow-card p-6">
+        <div class="h-10 w-10 rounded-lg bg-brand-100 text-brand-700 flex items-center justify-center">
+          <!-- Heart icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5"><path d="M12 21s-6.716-4.612-9.192-7.088A5.5 5.5 0 1112 6.414 5.5 5.5 0 1121.192 13.912C18.716 16.388 12 21 12 21z"/></svg>
+        </div>
+        <h3 class="mt-4 font-semibold">Community</h3>
+        <p class="mt-2 text-sm text-slate-600">We support local events and collaborate with artists across Central PA.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Process -->
+<section class="bg-slate-50 py-20">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <h2 class="text-3xl font-bold">How We Work</h2>
+    <div class="mt-10 grid gap-8 sm:grid-cols-3">
+      <div class="bg-white p-6 rounded-xl shadow-card">
+        <div class="text-brand-600 font-bold text-lg">1</div>
+        <h3 class="mt-2 font-semibold">Design the Piece</h3>
+        <p class="mt-1 text-slate-600">We sketch, color-match, and plan mold layouts for each batch.</p>
+      </div>
+      <div class="bg-white p-6 rounded-xl shadow-card">
+        <div class="text-brand-600 font-bold text-lg">2</div>
+        <h3 class="mt-2 font-semibold">Pour & Cure</h3>
+        <p class="mt-1 text-slate-600">Multiple pours and careful cure times produce consistent, durable results.</p>
+      </div>
+      <div class="bg-white p-6 rounded-xl shadow-card">
+        <div class="text-brand-600 font-bold text-lg">3</div>
+        <h3 class="mt-2 font-semibold">Finish & Ship</h3>
+        <p class="mt-1 text-slate-600">We demold, sand, and polish before packing with recyclable materials.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Maker -->
+<section class="py-20">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
+    <div>
+      <h2 class="text-3xl font-bold">Meet the Maker</h2>
+      <p class="mt-4 text-slate-700">Hi, I'm Sam. I started Sam's Nik Naks to explore playful color and form through resin. What began as a single batch of earrings has become a weekly ritual of limited drops—small runs with big personality.</p>
+      <p class="mt-3 text-slate-700">I believe everyday objects should feel special: a tray that brightens your desk, a keychain that sparks conversation, a set of dominoes that turns game night into an experience.</p>
+      <div class="mt-6">
+        <a href="{{ url_for('main.shop') }}" class="inline-block rounded-xl bg-slate-900 px-6 py-3 text-white hover:bg-slate-800">Browse the Shop</a>
+      </div>
+    </div>
+    <div>
+      <img src="{{ url_for('static', filename='img/prod2.jpg') }}" alt="Sam working on resin pieces" class="w-full rounded-2xl shadow-card object-cover">
+    </div>
+  </div>
+</section>
+
+<!-- Stats strip -->
+<section class="bg-white py-12 border-y border-slate-200">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8 grid sm:grid-cols-3 gap-8 text-center">
+    <div>
+      <div class="text-4xl font-extrabold tracking-tight">150+</div>
+      <div class="mt-1 text-slate-600">Limited drops launched</div>
+    </div>
+    <div>
+      <div class="text-4xl font-extrabold tracking-tight">4.9/5</div>
+      <div class="mt-1 text-slate-600">Average customer rating</div>
+    </div>
+    <div>
+      <div class="text-4xl font-extrabold tracking-tight">2–4 days</div>
+      <div class="mt-1 text-slate-600">Typical ship time</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="py-20 text-center">
+  <div class="mx-auto max-w-3xl px-6">
+    <h2 class="text-3xl font-bold">Thanks for supporting small-batch art</h2>
+    <p class="mt-3 text-slate-700">Sign up below for drop announcements, and be first to snag a piece.</p>
+    <a href="{{ url_for('main.shop') }}" class="mt-6 inline-block rounded-xl bg-brand-600 px-6 py-3 text-white hover:bg-brand-700">Shop the Latest</a>
+  </div>
+</section>
+
 {% endblock %}

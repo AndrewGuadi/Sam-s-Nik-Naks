@@ -1,10 +1,108 @@
 {% extends 'base.html' %}
 {% block title %}Returns & Exchanges - Sam's Nik Naks{% endblock %}
 {% block content %}
-<section class="py-16">
-  <div class="mx-auto max-w-3xl px-4">
-    <h1 class="text-3xl font-bold">Returns & Exchanges</h1>
-    <p class="mt-4 text-slate-700">Return and exchange policy details coming soon.</p>
+
+<!-- Hero -->
+<section class="relative bg-gradient-to-b from-slate-900 to-slate-800 text-white py-20">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight">Returns & Exchanges</h1>
+    <p class="mt-4 text-lg text-slate-200 max-w-3xl">We want you to love your purchase. If something’s not right, we’ll make it right. This page explains how returns, exchanges, and refunds work.</p>
   </div>
 </section>
+
+<!-- Quick Nav -->
+<section class="bg-white py-6 border-b border-slate-200">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <nav class="flex flex-wrap gap-3 text-sm">
+      <a class="px-3 py-1 rounded-full bg-slate-100 hover:bg-slate-200" href="#eligibility">Eligibility</a>
+      <a class="px-3 py-1 rounded-full bg-slate-100 hover:bg-slate-200" href="#how-to-start">How to Start</a>
+      <a class="px-3 py-1 rounded-full bg-slate-100 hover:bg-slate-200" href="#exchanges">Exchanges</a>
+      <a class="px-3 py-1 rounded-full bg-slate-100 hover:bg-slate-200" href="#refunds">Refunds</a>
+      <a class="px-3 py-1 rounded-full bg-slate-100 hover:bg-slate-200" href="#nonreturnable">Non‑returnable</a>
+      <a class="px-3 py-1 rounded-full bg-slate-100 hover:bg-slate-200" href="#shipping">Return Shipping</a>
+      <a class="px-3 py-1 rounded-full bg-slate-100 hover:bg-slate-200" href="#damaged">Damaged Items</a>
+      <a class="px-3 py-1 rounded-full bg-slate-100 hover:bg-slate-200" href="#late-or-missing">Late or Missing Refunds</a>
+      <a class="px-3 py-1 rounded-full bg-slate-100 hover:bg-slate-200" href="#contact">Contact</a>
+    </nav>
+  </div>
+</section>
+
+<!-- Policy content -->
+<section id="eligibility" class="py-16 bg-white">
+  <div class="mx-auto max-w-4xl px-6 lg:px-8">
+    <h2 class="text-2xl font-bold">Return Eligibility</h2>
+    <ul class="mt-3 space-y-2 text-slate-700">
+      <li>• Returns accepted within 30 days of delivery</li>
+      <li>• Item must be unused, in original condition and packaging</li>
+      <li>• Proof of purchase is required (order number or receipt)</li>
+    </ul>
+    <p class="mt-4 text-slate-700 text-sm">Note: Due to their personalized nature, custom pieces are final sale unless defective.</p>
+  </div>
+</section>
+
+<section id="how-to-start" class="py-16 bg-slate-50">
+  <div class="mx-auto max-w-4xl px-6 lg:px-8">
+    <h2 class="text-2xl font-bold">How to Start a Return</h2>
+    <ol class="mt-3 list-decimal list-inside text-slate-700 space-y-2">
+      <li>Locate your order number in your confirmation email.</li>
+      <li>Contact us via the <a href="{{ url_for('main.contact') }}" class="text-brand-700 hover:underline">contact</a> page with your order number and reason.</li>
+      <li>We’ll reply with a prepaid label (if applicable) and instructions.</li>
+    </ol>
+  </div>
+</section>
+
+<section id="exchanges" class="py-16 bg-white">
+  <div class="mx-auto max-w-4xl px-6 lg:px-8">
+    <h2 class="text-2xl font-bold">Exchanges</h2>
+    <p class="mt-3 text-slate-700">Need a different color or style? Exchanges are processed as a return plus a new purchase to ensure availability of limited drops.</p>
+  </div>
+</section>
+
+<section id="refunds" class="py-16 bg-slate-50">
+  <div class="mx-auto max-w-4xl px-6 lg:px-8">
+    <h2 class="text-2xl font-bold">Refunds</h2>
+    <p class="mt-3 text-slate-700">Once your return is received and inspected, we’ll notify you of approval or rejection. Approved refunds are issued to your original payment method within 5–10 business days.</p>
+  </div>
+</section>
+
+<section id="nonreturnable" class="py-16 bg-white">
+  <div class="mx-auto max-w-4xl px-6 lg:px-8">
+    <h2 class="text-2xl font-bold">Non‑returnable Items</h2>
+    <ul class="mt-3 list-disc list-inside text-slate-700">
+      <li>Gift cards</li>
+      <li>Custom or personalized items (unless defective)</li>
+      <li>Final sale items (marked as such at time of purchase)</li>
+    </ul>
+  </div>
+</section>
+
+<section id="shipping" class="py-16 bg-slate-50">
+  <div class="mx-auto max-w-4xl px-6 lg:px-8">
+    <h2 class="text-2xl font-bold">Return Shipping</h2>
+    <p class="mt-3 text-slate-700">We provide prepaid labels for approved returns within the U.S. Original shipping is non‑refundable unless we made an error. For international returns, shipping is the responsibility of the customer.</p>
+  </div>
+</section>
+
+<section id="damaged" class="py-16 bg-white">
+  <div class="mx-auto max-w-4xl px-6 lg:px-8">
+    <h2 class="text-2xl font-bold">Damaged or Incorrect Items</h2>
+    <p class="mt-3 text-slate-700">If your order arrives damaged or incorrect, contact us within 7 days of delivery with photos and your order number. We’ll make it right.</p>
+  </div>
+</section>
+
+<section id="late-or-missing" class="py-16 bg-slate-50">
+  <div class="mx-auto max-w-4xl px-6 lg:px-8">
+    <h2 class="text-2xl font-bold">Late or Missing Refunds</h2>
+    <p class="mt-3 text-slate-700">If you haven’t received a refund yet, first check with your bank or card issuer—it may take time to post. Then contact us if it’s still missing.</p>
+  </div>
+</section>
+
+<section id="contact" class="py-20 text-center">
+  <div class="mx-auto max-w-3xl px-6">
+    <h2 class="text-3xl font-bold">Need help with a return?</h2>
+    <p class="mt-3 text-slate-700">We’re here to help. Start your request and we’ll reply within 1–2 business days.</p>
+    <a href="{{ url_for('main.contact') }}" class="mt-6 inline-block rounded-xl bg-brand-600 px-6 py-3 text-white hover:bg-brand-700">Contact Support</a>
+  </div>
+</section>
+
 {% endblock %}
