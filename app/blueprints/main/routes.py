@@ -1,6 +1,7 @@
 # app/blueprints/main/routes.py
-from flask import Blueprint, render_template, render_template_string, request, jsonify, redirect, url_for
+from flask import Blueprint, render_template, render_template_string, request, jsonify, redirect, url_for, flash
 from . import main
+from .forms import ContactForm
 
 # ---------- Shared demo data ----------
 def _demo_drop():
@@ -102,10 +103,14 @@ def reviews():  # url_for('main.reviews')
 
 @main.route("/contact", methods=["GET", "POST"])
 def contact():  # url_for('main.contact')
-    if request.method == "POST":
-        # Handle contact form here later
+    form = ContactForm()
+    if form.validate_on_submit():
+        # TODO: send email or store ticket
+        flash("Thanks! Your message has been sent.", "success")
         return redirect(url_for("main.contact"))
-    return render_template("contact.html", cart_count=0, current_year=2025)
+    elif request.method == "POST":
+        flash("Please correct the errors below and resubmit.", "error")
+    return render_template("contact.html", form=form, cart_count=0, current_year=2025)
 
 @main.route("/privacy")
 def privacy():  # url_for('main.privacy')
