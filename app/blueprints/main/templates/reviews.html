@@ -1,10 +1,86 @@
 {% extends 'base.html' %}
 {% block title %}Reviews - Sam's Nik Naks{% endblock %}
 {% block content %}
-<section class="py-16">
-  <div class="mx-auto max-w-5xl px-4">
-    <h1 class="text-3xl font-bold">Customer Reviews</h1>
-    <p class="mt-4 text-slate-700">We will showcase customer feedback and testimonials on this page.</p>
+
+<!-- Hero -->
+<section class="relative bg-gradient-to-b from-slate-900 to-slate-800 text-white py-20">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight">What Customers Say</h1>
+    <p class="mt-4 text-lg text-slate-200 max-w-3xl">Real feedback from real people. Thanks for supporting small-batch art!</p>
   </div>
 </section>
+
+<!-- Rating summary -->
+<section class="py-16 bg-white">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8 grid gap-12 lg:grid-cols-3 items-start">
+    <div class="bg-white rounded-2xl shadow-card p-6">
+      <div class="text-5xl font-extrabold tracking-tight">4.9</div>
+      <div class="mt-1 text-slate-600">Average rating from 240+ reviews</div>
+      <div class="mt-4 flex items-center gap-1 text-amber-500">
+        {% for _ in range(5) %}
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.802 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.802-2.034a1 1 0 00-1.175 0l-2.802 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.88 8.72c-.783-.57-.38-1.81.588-1.81H6.93a1 1 0 00.95-.69l1.07-3.292z"/></svg>
+        {% endfor %}
+      </div>
+      <div class="mt-6 space-y-2 text-sm">
+        <div class="flex items-center gap-3"><span class="w-10">5★</span><div class="flex-1 bg-slate-100 rounded-full h-2"><div class="h-2 bg-amber-500 rounded-full" style="width: 84%"></div></div><span class="w-10 text-right">84%</span></div>
+        <div class="flex items-center gap-3"><span class="w-10">4★</span><div class="flex-1 bg-slate-100 rounded-full h-2"><div class="h-2 bg-amber-500/70 rounded-full" style="width: 12%"></div></div><span class="w-10 text-right">12%</span></div>
+        <div class="flex items-center gap-3"><span class="w-10">3★</span><div class="flex-1 bg-slate-100 rounded-full h-2"><div class="h-2 bg-amber-500/60 rounded-full" style="width: 3%"></div></div><span class="w-10 text-right">3%</span></div>
+        <div class="flex items-center gap-3"><span class="w-10">2★</span><div class="flex-1 bg-slate-100 rounded-full h-2"><div class="h-2 bg-amber-500/50 rounded-full" style="width: 1%"></div></div><span class="w-10 text-right">1%</span></div>
+        <div class="flex items-center gap-3"><span class="w-10">1★</span><div class="flex-1 bg-slate-100 rounded-full h-2"><div class="h-2 bg-amber-500/40 rounded-full" style="width: 0%"></div></div><span class="w-10 text-right">0%</span></div>
+      </div>
+    </div>
+
+    <div class="lg:col-span-2">
+      <div class="grid gap-6 sm:grid-cols-2">
+        {% set sample_reviews = [
+          {"name":"Alex R.", "location":"PA", "rating":5, "text":"Fast shipping and incredible craftsmanship. The tray is gorgeous!"},
+          {"name":"Sam K.", "location":"NJ", "rating":5, "text":"The drop sold out quick. Love the pin—colors are perfect."},
+          {"name":"Dana P.", "location":"NY", "rating":5, "text":"Exactly as pictured. Secure packaging and quick delivery."},
+          {"name":"Maya L.", "location":"PA", "rating":4, "text":"Beautiful earrings. Slightly smaller than expected, but still a fave."},
+          {"name":"Chris T.", "location":"MD", "rating":5, "text":"Dominoes set is a hit at game night. Great finish and weight."},
+          {"name":"Jordan B.", "location":"VA", "rating":5, "text":"Custom keychain turned out amazing. Friendly communication."}
+        ] %}
+
+        {% for r in sample_reviews %}
+        <div class="bg-white rounded-2xl shadow-card p-6">
+          <div class="flex items-center justify-between">
+            <div class="font-semibold">{{ r.name }}</div>
+            <div class="flex items-center gap-1 text-amber-500">
+              {% for _ in range(r.rating) %}
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.802 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.802-2.034a1 1 0 00-1.175 0l-2.802 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.88 8.72c-.783-.57-.38-1.81.588-1.81H6.93a1 1 0 00.95-.69l1.07-3.292z"/></svg>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="text-sm text-slate-600">{{ r.location }}</div>
+          <p class="mt-3 text-slate-800">“{{ r.text }}”</p>
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- Write a review CTA (placeholder) -->
+      <div class="mt-8 text-center">
+        <a href="#" class="inline-block rounded-xl border border-slate-300 px-6 py-3 hover:bg-slate-50">Write a Review (coming soon)</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Photo strip -->
+<section class="bg-slate-50 py-12">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8 grid grid-cols-2 sm:grid-cols-4 gap-4">
+    {% for img in ['img/prod1.jpg','img/prod2.jpg','img/prod3.jpg','img/prod4.jpg'] %}
+    <img src="{{ url_for('static', filename=img) }}" alt="Product photo" class="w-full h-28 object-cover rounded-xl shadow-card">
+    {% endfor %}
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="py-20 text-center">
+  <div class="mx-auto max-w-3xl px-6">
+    <h2 class="text-3xl font-bold">Ready to snag something special?</h2>
+    <p class="mt-3 text-slate-700">Shop limited drops before they’re gone.</p>
+    <a href="{{ url_for('main.shop') }}" class="mt-6 inline-block rounded-xl bg-brand-600 px-6 py-3 text-white hover:bg-brand-700">Shop Now</a>
+  </div>
+</section>
+
 {% endblock %}

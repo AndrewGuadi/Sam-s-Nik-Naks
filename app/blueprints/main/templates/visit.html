@@ -1,10 +1,91 @@
 {% extends 'base.html' %}
 {% block title %}Visit Us - Sam's Nik Naks{% endblock %}
 {% block content %}
-<section class="py-16">
-  <div class="mx-auto max-w-3xl px-4">
-    <h1 class="text-3xl font-bold">Visit Us</h1>
-    <p class="mt-4 text-slate-700">Store location and hours will appear here.</p>
+
+<!-- Hero -->
+<section class="relative bg-gradient-to-b from-slate-900 to-slate-800 text-white py-20">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight">Visit Us</h1>
+    <p class="mt-4 text-lg text-slate-200 max-w-3xl">Come see the studio, shop one‑offs, and pick up online orders.</p>
   </div>
 </section>
+
+<!-- Location / Hours / Contact -->
+<section class="py-16 bg-white">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8 grid gap-12 lg:grid-cols-3">
+    <!-- Address card -->
+    <div class="bg-white rounded-2xl shadow-card p-6">
+      <h2 class="text-xl font-semibold">Studio Location</h2>
+      <p class="mt-2 text-slate-700">123 Market Street<br>Harrisburg, PA 17101</p>
+      <p class="mt-2 text-slate-700">Parking available on Market St. and adjacent lot.</p>
+      <a href="https://maps.google.com/?q=123+Market+Street+Harrisburg+PA+17101" target="_blank" rel="noopener" class="inline-block mt-4 rounded-lg bg-slate-900 px-4 py-2 text-white hover:bg-slate-800">Open in Maps</a>
+    </div>
+
+    <!-- Hours card -->
+    <div class="bg-white rounded-2xl shadow-card p-6">
+      <h2 class="text-xl font-semibold">Hours</h2>
+      <ul class="mt-2 text-slate-700 space-y-1">
+        <li><span class="inline-block w-28">Mon–Tue</span> Closed</li>
+        <li><span class="inline-block w-28">Wed–Fri</span> 12:00–6:00 PM</li>
+        <li><span class="inline-block w-28">Saturday</span> 10:00–4:00 PM</li>
+        <li><span class="inline-block w-28">Sunday</span> Pop‑ups only</li>
+      </ul>
+      <p class="mt-2 text-sm text-slate-600">Hours may vary on drop days; check socials for updates.</p>
+    </div>
+
+    <!-- Contact card -->
+    <div class="bg-white rounded-2xl shadow-card p-6">
+      <h2 class="text-xl font-semibold">Contact</h2>
+      <p class="mt-2 text-slate-700">Email: hello@samsniknaks.example</p>
+      <p class="mt-1 text-slate-700">Phone: (717) 555‑0199</p>
+      <a href="{{ url_for('main.contact') }}" class="inline-block mt-4 rounded-lg border border-slate-300 px-4 py-2 hover:bg-slate-50">Message Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery -->
+<section class="py-16 bg-slate-50">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <h2 class="text-3xl font-bold">Peek Inside the Studio</h2>
+    <div class="mt-8 grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+      {% for img in ['img/prod1.jpg','img/prod2.jpg','img/prod3.jpg','img/prod4.jpg','img/prod2.jpg','img/prod3.jpg'] %}
+      <img src="{{ url_for('static', filename=img) }}" alt="Studio preview" class="w-full h-32 object-cover rounded-xl shadow-card">
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Upcoming Pop-ups -->
+<section class="py-16 bg-white">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <h2 class="text-3xl font-bold">Upcoming Pop‑ups</h2>
+    <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="rounded-2xl shadow-card p-6">
+        <div class="text-sm text-brand-700 font-semibold">Harrisburg</div>
+        <div class="mt-1 font-semibold">Midtown Arts Market</div>
+        <div class="text-sm text-slate-600">Sat, Nov 8 • 10am–2pm</div>
+      </div>
+      <div class="rounded-2xl shadow-card p-6">
+        <div class="text-sm text-brand-700 font-semibold">Camp Hill</div>
+        <div class="mt-1 font-semibold">Riverfront Pop‑up</div>
+        <div class="text-sm text-slate-600">Sun, Nov 16 • 11am–3pm</div>
+      </div>
+      <div class="rounded-2xl shadow-card p-6">
+        <div class="text-sm text-brand-700 font-semibold">Mechanicsburg</div>
+        <div class="mt-1 font-semibold">Holiday Makers Fair</div>
+        <div class="text-sm text-slate-600">Sat, Dec 6 • 9am–1pm</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="py-20 text-center">
+  <div class="mx-auto max-w-3xl px-6">
+    <h2 class="text-3xl font-bold">Come say hi and browse the latest drop</h2>
+    <p class="mt-3 text-slate-700">Or order online and choose local pickup at checkout.</p>
+    <a href="{{ url_for('main.shop') }}" class="mt-6 inline-block rounded-xl bg-brand-600 px-6 py-3 text-white hover:bg-brand-700">Shop the Drop</a>
+  </div>
+</section>
+
 {% endblock %}
