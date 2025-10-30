@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}{{ category['name'] }} | Shop Sam's Nik Naks{% endblock %}
+{% block content %}
+<section class="py-16">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <header class="overflow-hidden rounded-3xl">
+      <div class="relative">
+        <img src="{{ category['hero_image'] }}" alt="{{ category['name'] }} resin inspiration" class="h-64 w-full object-cover" loading="lazy">
+        <div class="absolute inset-0 bg-gradient-to-r from-base-900/80 to-transparent"></div>
+        <div class="absolute inset-0 flex items-center p-8">
+          <div class="max-w-lg">
+            <h1 class="text-3xl font-semibold">{{ category['name'] }}</h1>
+            <p class="mt-3 text-sm text-white/75">{{ category['description'] }}</p>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {% for product in products %}
+      <article class="glass-panel flex h-full flex-col rounded-3xl">
+        <div class="gloss-track overflow-hidden rounded-3xl">
+          <img src="{{ product['hero_image'] }}" alt="{{ product['name'] }}" class="h-64 w-full object-cover" loading="lazy">
+        </div>
+        <div class="flex flex-1 flex-col gap-4 p-5">
+          <div>
+            <h2 class="text-xl font-semibold">{{ product['name'] }}</h2>
+            <p class="mt-2 text-sm text-white/70">{{ product['description'][:110] }}{% if product['description']|length > 110 %}…{% endif %}</p>
+          </div>
+          <div class="flex items-center justify-between text-sm text-white/70">
+            <span>${{ '%.2f'|format(product['price']) }}</span>
+            {% if product['availability'] == 'made_to_order' %}
+            <span class="badge">Made to order</span>
+            {% elif product['limited_drop'] %}
+            <span class="badge">Limited</span>
+            {% endif %}
+          </div>
+          <a href="{{ url_for('shop.product', slug=product['slug']) }}" class="mt-auto text-sm text-accent-400 hover:underline">View details</a>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}How Custom Resin Works | Sam's Nik Naks{% endblock %}
+{% block content %}
+<section class="py-16">
+  <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+    <header class="text-center">
+      <p class="text-xs uppercase tracking-[0.35em] text-accent-400">Custom Process</p>
+      <h1 class="mt-3 text-3xl font-semibold">Four steps from idea to resin keepsake</h1>
+    </header>
+    <div class="mt-12 grid gap-8 md:grid-cols-2">
+      <article class="glass-panel rounded-3xl p-6">
+        <h2 class="text-xl font-semibold">Intake</h2>
+        <p class="mt-2 text-white/70">We review your notes, vibe references, and preferred colors to confirm the direction.</p>
+      </article>
+      <article class="glass-panel rounded-3xl p-6">
+        <h2 class="text-xl font-semibold">Sketch</h2>
+        <p class="mt-2 text-white/70">You’ll receive digital sketches or mockups to select inclusions, colorways, and finish.</p>
+      </article>
+      <article class="glass-panel rounded-3xl p-6">
+        <h2 class="text-xl font-semibold">Resin Pour</h2>
+        <p class="mt-2 text-white/70">We pour in stages for clarity, hand-placing inclusions with tweezers for precise layouts.</p>
+      </article>
+      <article class="glass-panel rounded-3xl p-6">
+        <h2 class="text-xl font-semibold">Finish & Delivery</h2>
+        <p class="mt-2 text-white/70">We sand, polish, and package for pickup in Harrisburg or insured shipping nationwide.</p>
+      </article>
+    </div>
+    <div class="mt-12 text-center">
+      <a href="{{ url_for('custom.intake_form') }}" class="cta-ripple hover-float inline-flex items-center rounded-xl bg-accent-500 px-6 py-3 font-medium text-black shadow-glow">Start a custom request</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

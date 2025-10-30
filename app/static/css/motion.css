@@ -1,0 +1,43 @@
+@media (prefers-reduced-motion: no-preference) {
+  .hover-float {
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+
+  .hover-float:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(5, 5, 8, 0.45);
+  }
+
+  .cta-ripple {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-ripple::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(143, 211, 255, 0.2), transparent 70%);
+    opacity: 0;
+    transition: opacity 200ms ease;
+  }
+
+  .cta-ripple:hover::after {
+    opacity: 1;
+  }
+
+  .filter-chip {
+    transition: background 200ms ease, color 200ms ease;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

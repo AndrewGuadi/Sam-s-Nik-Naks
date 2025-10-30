@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block title %}{{ product['name'] }} | Sam's Nik Naks{% endblock %}
+{% block content %}
+<section class="py-16">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <div class="grid gap-10 lg:grid-cols-2">
+      <div class="space-y-4">
+        <div class="glass-panel overflow-hidden rounded-3xl">
+          <img src="{{ images[0]['image_url'] if images else 'https://images.unsplash.com/photo-1512446816042-444d641267d4?auto=format&fit=crop&w=1200&q=80' }}" alt="{{ images[0]['alt_text'] if images else product['name'] }}" class="w-full object-cover">
+        </div>
+        <div class="grid grid-cols-3 gap-3">
+          {% for image in images[1:] %}
+          <img src="{{ image['image_url'] }}" alt="{{ image['alt_text'] }}" class="h-32 w-full rounded-2xl object-cover" loading="lazy">
+          {% endfor %}
+        </div>
+      </div>
+      <div class="space-y-6">
+        <div class="flex items-center gap-3">
+          {% if product['limited_drop'] %}<span class="badge">Limited Drop</span>{% endif %}
+          {% if product['availability'] == 'made_to_order' %}<span class="badge">Made to order</span>{% endif %}
+        </div>
+        <div>
+          <h1 class="text-3xl font-semibold">{{ product['name'] }}</h1>
+          <p class="mt-3 text-white/70">{{ product['description'] }}</p>
+          <p class="mt-4 text-2xl font-semibold text-accent-400">${{ '%.2f'|format(product['price']) }}</p>
+        </div>
+        <form class="space-y-4" method="post" action="#">
+          {% if options.get('sizes') %}
+          <div>
+            <label class="text-sm font-medium text-white/80" for="size">Size</label>
+            <select id="size" name="size" class="mt-2 w-full rounded-xl border border-white/15 bg-base-800/80 px-4 py-3 text-white">
+              {% for size in options['sizes'] %}
+              <option value="{{ size }}">{{ size }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          {% endif %}
+          {% if options.get('colorways') %}
+          <div>
+            <span class="text-sm font-medium text-white/80">Colorway</span>
+            <div class="mt-2 flex flex-wrap gap-2">
+              {% for color in options['colorways'] %}
+              <label class="flex cursor-pointer items-center gap-2 rounded-full border border-white/15 bg-base-800/80 px-3 py-1 text-sm">
+                <input type="radio" name="colorway" value="{{ color }}" {% if loop.first %}checked{% endif %}>
+                <span>{{ color }}</span>
+              </label>
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
+          {% if personalization.get('engrave') %}
+          <div>
+            <label for="engraving" class="text-sm font-medium text-white/80">Engraving text</label>
+            <input id="engraving" name="engraving" maxlength="40" class="mt-2 w-full rounded-xl border border-white/15 bg-base-800/80 px-4 py-3 text-white" placeholder="Add a short phrase" />
+          </div>
+          {% endif %}
+          <div class="flex flex-wrap gap-3">
+            <button data-add-to-cart class="cta-ripple hover-float inline-flex items-center rounded-xl bg-accent-500 px-6 py-3 font-medium text-black shadow-glow">Add to Cart</button>
+            <a href="{{ url_for('custom.intake_form') }}" class="hover-float inline-flex items-center rounded-xl border border-white/20 px-6 py-3 text-white/80 hover:text-white">Start custom</a>
+          </div>
+        </form>
+        <div class="glass-panel rounded-3xl p-6 text-sm text-white/70">
+          <h2 class="text-lg font-semibold text-white">Care highlights</h2>
+          <p class="mt-2">Clean with a soft cloth, avoid prolonged UV, and let resin cure fully before heavy use.</p>
+          <a href="{{ url_for('main.care') }}" class="mt-3 inline-flex items-center text-accent-400 hover:underline">Read the full care guide</a>
+        </div>
+        <div class="space-y-4">
+          <h2 class="text-lg font-semibold">Review snippets</h2>
+          {% for review in related[:2] %}
+          <p class="text-sm text-white/70">“{{ review['description'][:90] if review.get('description') else 'Thoughtful craftsmanship and gorgeous finish.' }}”</p>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% if related %}
+    <section class="mt-16">
+      <h2 class="text-2xl font-semibold">Related pieces</h2>
+      <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {% for item in related %}
+        <a href="{{ url_for('shop.product', slug=item['slug']) }}" class="glass-panel block rounded-3xl p-5">
+          <img src="{{ item['hero_image'] }}" alt="{{ item['name'] }}" class="h-48 w-full rounded-2xl object-cover" loading="lazy">
+          <h3 class="mt-4 text-lg font-semibold">{{ item['name'] }}</h3>
+          <p class="mt-1 text-sm text-white/70">${{ '%.2f'|format(item['price']) }}</p>
+        </a>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}
