@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Visit Sam's Nik Naks{% endblock %}
+{% block content %}
+<section class="py-16">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <header class="text-center">
+      <p class="text-xs uppercase tracking-[0.35em] text-accent-400">Visit Us</p>
+      <h1 class="mt-3 text-3xl font-semibold">Stop by the studio or catch a pop-up</h1>
+      <p class="mt-4 text-white/70">We’re rooted in Central PA with rotating events across Harrisburg, Camp Hill, Mechanicsburg, and Carlisle.</p>
+    </header>
+    <div class="mt-12 grid gap-8 lg:grid-cols-[2fr,3fr]">
+      <div class="space-y-6">
+        <article class="glass-panel rounded-3xl p-6">
+          <h2 class="text-xl font-semibold">Studio hours</h2>
+          <p class="mt-2 text-sm text-white/70">Friday – Sunday · 11am – 6pm</p>
+          <p class="mt-2 text-sm text-white/70">Third Street Market, Harrisburg, PA</p>
+          <p class="mt-4 text-sm text-white/70">Parking is available in the adjacent lot after 5pm. Street parking is open on weekends.</p>
+        </article>
+        <article class="glass-panel rounded-3xl p-6">
+          <h2 class="text-xl font-semibold">Upcoming pop-ups</h2>
+          <ul class="mt-3 space-y-3 text-sm text-white/70">
+            <li><strong class="text-white">Camp Hill Market</strong> · Saturday 10am – 3pm · Make-and-take earrings</li>
+            <li><strong class="text-white">Mechanicsburg Liberty Commons</strong> · First Sunday 12pm – 4pm · Custom consults</li>
+            <li><strong class="text-white">Carlisle Arts Corridor</strong> · Monthly evenings · Collaborations with local artists</li>
+          </ul>
+        </article>
+      </div>
+      <div class="glass-panel rounded-3xl p-6">
+        <div class="aspect-[4/3] overflow-hidden rounded-2xl">
+          <iframe title="Studio map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3066.866203087034!2d-76.887!3d40.273!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDE2JzIzLjAiTiA3NsKwNTMnMTMuMCJX!5e0!3m2!1sen!2sus!4v1700000000000" class="h-full w-full" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        </div>
+        <p class="mt-4 text-sm text-white/70">Need tailored directions? Email <a href="mailto:hello@samsniknaks.com" class="text-accent-400 hover:underline">hello@samsniknaks.com</a>.</p>
+      </div>
+    </div>
+    <div class="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {% for city in cities %}
+      <a href="{{ url_for('main.local_page', slug=city['slug']) }}" class="city-tile hover-float">
+        <h3 class="font-medium">{{ city['title'] }}</h3>
+        <p class="text-sm text-white/70">{{ city['intro'] }}</p>
+        <span class="text-xs text-accent-400">{{ city['hours'] }}</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

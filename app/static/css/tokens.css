@@ -1,0 +1,25 @@
+:root {
+  --color-base-900: #050508;
+  --color-base-800: #0b0b0f;
+  --color-base-700: #14141d;
+  --color-base-600: #1d1d2a;
+  --color-accent-500: #8fd3ff;
+  --color-accent-400: #b0e4ff;
+  --color-glass: rgba(255, 255, 255, 0.08);
+  --color-text-muted: rgba(255, 255, 255, 0.65);
+  --focus-ring: 0 0 0 3px rgba(143, 211, 255, 0.45);
+}
+
+a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.35em;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}

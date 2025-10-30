@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Order Complete | Sam's Nik Naks{% endblock %}
+{% block content %}
+<section class="py-16">
+  <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
+    <div class="glass-panel rounded-3xl p-12">
+      <p class="text-sm uppercase tracking-[0.35em] text-accent-400">Thank you</p>
+      <h1 class="mt-4 text-3xl font-semibold">Your order is on the way</h1>
+      <p class="mt-3 text-white/70">We’ve emailed your receipt and will share tracking once your piece ships. Expect a note from Sam soon!</p>
+      <a href="{{ url_for('shop.list_products') }}" class="mt-8 inline-flex items-center rounded-xl bg-accent-500 px-6 py-3 font-medium text-black shadow-glow">Back to shop</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

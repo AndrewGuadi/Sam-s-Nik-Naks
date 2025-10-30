@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Search | Sam's Nik Naks{% endblock %}
+{% block content %}
+<section class="py-16">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-semibold">Search the shop</h1>
+    <form method="get" class="mt-6 flex flex-wrap gap-3">
+      <label for="search" class="sr-only">Search products</label>
+      <input id="search" name="q" value="{{ term }}" placeholder="Earrings, tray, dominoes..." class="flex-1 rounded-xl border border-white/15 bg-base-800/80 px-4 py-3 text-white" />
+      <button class="cta-ripple hover-float inline-flex items-center rounded-xl bg-accent-500 px-6 py-3 font-medium text-black shadow-glow">Search</button>
+    </form>
+    {% if term %}
+    <p class="mt-4 text-sm text-white/70">Showing {{ products|length }} result{% if products|length != 1 %}s{% endif %} for “{{ term }}”.</p>
+    {% endif %}
+    <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {% for product in products %}
+      <a href="{{ url_for('shop.product', slug=product['slug']) }}" class="glass-panel block rounded-3xl p-5">
+        <img src="{{ product['hero_image'] }}" alt="{{ product['name'] }}" class="h-48 w-full rounded-2xl object-cover" loading="lazy">
+        <h2 class="mt-4 text-lg font-semibold">{{ product['name'] }}</h2>
+        <p class="mt-1 text-sm text-white/70">${{ '%.2f'|format(product['price']) }}</p>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,147 +1,238 @@
-<!-- ================================
-File: templates/base.html
-Purpose: Global layout with Tailwind, SEO, a11y, and JS hooks
-================================ -->
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth antialiased">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{% block title %}Sam's Nik Naks{% endblock %}</title>
-    <meta name="description" content="Hand-picked nik naks, limited drops, fast shipping from PA." />
+    <title>{% block title %}Sam's Nik Naks | Resin Art & Limited Drops{% endblock %}</title>
+    <meta name="description" content="Custom-made resin reflections: earrings, trays, ashtrays, dominoes, bottle openers, and more from Central PA." />
     <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Sam's Nik Naks" />
+    <meta property="og:description" content="Resin art, limited drops, and custom commissions." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1512446816042-444d641267d4?auto=format&fit=crop&w=1200&q=80" />
+    <meta property="og:url" content="https://samsniknaks.local/" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Sam's Nik Naks" />
+    <meta name="twitter:description" content="Resin art, limited drops, and custom commissions." />
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Tailwind CDN for dev; swap to compiled CSS in production -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ["Inter", "ui-sans-serif", "system-ui", "-apple-system", "Segoe UI", "Roboto", "Arial", "sans-serif"] },
-                    colors: {
-                        brand: {
-                            50: "#f2fbff",
-                            100: "#e6f6ff",
-                            200: "#bfe8ff",
-                            300: "#99dbff",
-                            400: "#33b8ff",
-                            500: "#009eea",
-                            600: "#007bb7",
-                            700: "#005a86",
-                            800: "#003a56",
-                            900: "#001b29"
-                        }
-                    },
-                    boxShadow: {
-                        card: "0 8px 20px rgba(0,0,0,0.08)",
-                    }
-                }
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+            },
+            colors: {
+              base: {
+                900: '#050508',
+                800: '#0b0b0f',
+                700: '#14141d',
+                600: '#1d1d2a',
+              },
+              accent: {
+                500: '#8fd3ff',
+                400: '#b0e4ff',
+                300: '#def3ff'
+              }
+            },
+            boxShadow: {
+              glow: '0 0 0 1px rgba(255,255,255,0.08), 0 20px 50px rgba(5,5,8,0.55)',
             }
+          }
         }
+      };
     </script>
-    {% block head_extra %}{% endblock %}
-</head>
-<body class="bg-white text-slate-900 antialiased">
-    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-brand-600 text-white px-3 py-2 rounded">Skip to content</a>
 
-    <!-- Site Header -->
-    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div class="flex h-16 items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <a href="{{ url_for('main.home') }}" class="flex items-center gap-2">
-                        <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="Sam's Nik Naks logo" class="h-8 w-8" />
-                        <span class="font-semibold tracking-tight">Sam's Nik Naks</span>
-                    </a>
-                </div>
-                <nav class="hidden md:flex items-center gap-6 text-sm" aria-label="Primary">
-                    <a class="hover:text-brand-700" href="{{ url_for('main.shop') }}">Shop</a>
-                    <a class="hover:text-brand-700" href="{{ url_for('main.about') }}">About</a>
-                    <a class="hover:text-brand-700" href="{{ url_for('main.faq') }}">FAQ</a>
-                    <a class="hover:text-brand-700" href="{{ url_for('main.contact') }}">Contact</a>
-                </nav>
-                <div class="flex items-center gap-3">
-                    <a href="{{ url_for('main.cart') }}" class="relative inline-flex items-center" aria-label="Cart">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
-                            <path d="M3 3h2l.4 2M7 13h10l4-8H5.4" />
-                            <circle cx="9" cy="21" r="1" />
-                            <circle cx="20" cy="21" r="1" />
-                        </svg>
-                        <span id="cart-count" class="ml-1 text-sm">{{ cart_count or 0 }}</span>
-                    </a>
-                    <button id="mobileToggle" class="md:hidden inline-flex items-center justify-center rounded-lg p-2 hover:bg-slate-100" aria-controls="primary-menu" aria-expanded="false" aria-label="Toggle Menu">
-                        <svg id="iconOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                        <svg id="iconClose" xmlns="http://www.w3.org/2000/svg" class="hidden h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tokens.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/resin-glass.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/motion.css') }}">
+    {% block head_extra %}{% endblock %}
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Sam's Nik Naks",
+      "image": "https://images.unsplash.com/photo-1512446816042-444d641267d4?auto=format&fit=crop&w=1200&q=80",
+      "description": "Resin art, limited drops, and custom commissions in Central Pennsylvania.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Harrisburg",
+        "addressRegion": "PA"
+      },
+      "url": "https://samsniknaks.local/"
+    }
+    </script>
+</head>
+<body class="bg-base-900 text-white selection:bg-accent-500/30">
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 bg-base-700 px-4 py-2 rounded-lg">Skip to content</a>
+
+    <header class="sticky top-0 z-40 border-b border-white/10 bg-base-900/80 backdrop-blur">
+        <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+            <a href="{{ url_for('main.home') }}" class="flex items-center gap-3">
+                <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="Sam's Nik Naks logo" class="h-10 w-10" />
+                <span class="font-semibold tracking-wide">Sam's Nik Naks</span>
+            </a>
+            <nav class="hidden lg:flex items-center gap-8 text-sm" aria-label="Primary">
+                <a class="hover:text-accent-400 transition" href="{{ url_for('main.home') }}">Home</a>
+                <div class="group relative">
+                    <button class="inline-flex items-center gap-1 hover:text-accent-400 transition" type="button">
+                        Shop
+                        <svg class="h-3 w-3" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M2.47 4.97a.75.75 0 011.06 0L6 7.44l2.47-2.47a.75.75 0 111.06 1.06l-3 3a.75.75 0 01-1.06 0l-3-3a.75.75 0 010-1.06z"/></svg>
                     </button>
+                    <div class="invisible absolute left-1/2 top-full z-40 mt-3 w-64 -translate-x-1/2 rounded-2xl border border-white/10 bg-base-800/95 p-4 opacity-0 shadow-glow backdrop-blur transition group-hover:visible group-hover:opacity-100">
+                        <ul class="space-y-2 text-sm">
+                            <li><a class="block rounded-lg px-3 py-2 hover:bg-white/10" href="{{ url_for('shop.list_products') }}">All Products</a></li>
+                            <li><a class="block rounded-lg px-3 py-2 hover:bg-white/10" href="{{ url_for('shop.limited') }}">Limited Drops</a></li>
+                            <li><a class="block rounded-lg px-3 py-2 hover:bg-white/10" href="{{ url_for('shop.seasonal') }}">Seasonal</a></li>
+                            <li><a class="block rounded-lg px-3 py-2 hover:bg-white/10" href="{{ url_for('shop.category', slug='earrings') }}">Earrings</a></li>
+                            <li><a class="block rounded-lg px-3 py-2 hover:bg-white/10" href="{{ url_for('shop.category', slug='trays') }}">Trays</a></li>
+                            <li><a class="block rounded-lg px-3 py-2 hover:bg-white/10" href="{{ url_for('shop.category', slug='ashtrays') }}">Ashtrays</a></li>
+                            <li><a class="block rounded-lg px-3 py-2 hover:bg-white/10" href="{{ url_for('shop.category', slug='dominoes') }}">Dominoes</a></li>
+                            <li><a class="block rounded-lg px-3 py-2 hover:bg-white/10" href="{{ url_for('shop.category', slug='bottle-openers') }}">Bottle Openers</a></li>
+                            <li><a class="block rounded-lg px-3 py-2 hover:bg-white/10" href="{{ url_for('shop.category', slug='wearables') }}">Wearables</a></li>
+                        </ul>
+                    </div>
                 </div>
+                <a class="hover:text-accent-400 transition" href="{{ url_for('custom.how_it_works') }}">Custom</a>
+                <a class="hover:text-accent-400 transition" href="{{ url_for('media.videos') }}">Join Me</a>
+                <a class="hover:text-accent-400 transition" href="{{ url_for('main.about') }}">About</a>
+                <a class="hover:text-accent-400 transition" href="{{ url_for('main.visit') }}">Visit Us</a>
+                <a class="hover:text-accent-400 transition" href="{{ url_for('main.faq') }}">FAQ</a>
+            </nav>
+            <div class="flex items-center gap-3">
+                <a href="{{ url_for('shop.search') }}" aria-label="Search" class="rounded-full p-2 hover:bg-white/10 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="h-5 w-5"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg>
+                </a>
+                <a href="{{ url_for('checkout.cart') }}" class="inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-1.5 hover:bg-white/10 transition" aria-label="Cart">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="h-5 w-5"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4"/><circle cx="9" cy="21" r="1"/><circle cx="19" cy="21" r="1"/></svg>
+                    <span data-cart-count>{{ cart_count or 0 }}</span>
+                </a>
+                <button data-mobile-toggle class="inline-flex items-center justify-center rounded-full p-2 hover:bg-white/10 transition lg:hidden" type="button" aria-controls="mobile-menu" aria-expanded="false" aria-label="Toggle menu">
+                    <svg data-icon-open xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    <svg data-icon-close xmlns="http://www.w3.org/2000/svg" class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
             </div>
         </div>
-        <!-- Mobile menu -->
-        <nav id="primary-menu" class="md:hidden hidden border-t border-slate-200 bg-white" aria-label="Mobile Primary">
-            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 space-y-2">
-                <a class="block px-2 py-2 rounded hover:bg-slate-50" href="{{ url_for('main.shop') }}">Shop</a>
-                <a class="block px-2 py-2 rounded hover:bg-slate-50" href="{{ url_for('main.about') }}">About</a>
-                <a class="block px-2 py-2 rounded hover:bg-slate-50" href="{{ url_for('main.faq') }}">FAQ</a>
-                <a class="block px-2 py-2 rounded hover:bg-slate-50" href="{{ url_for('main.contact') }}">Contact</a>
+        <nav id="mobile-menu" data-mobile-menu class="hidden border-t border-white/10 bg-base-900/95 backdrop-blur lg:hidden" aria-label="Mobile">
+            <div class="space-y-1 px-4 py-4 text-sm">
+                <a class="block rounded-lg px-3 py-2 hover:bg-white/10" href="{{ url_for('main.home') }}">Home</a>
+                <details class="group rounded-lg bg-white/5 p-2">
+                    <summary class="flex cursor-pointer items-center justify-between px-2 py-1 font-medium">Shop<span class="text-xs text-white/60">Browse</span></summary>
+                    <ul class="mt-2 space-y-1">
+                        <li><a class="block rounded-lg px-3 py-2 hover:bg-white/10" href="{{ url_for('shop.list_products') }}">All Products</a></li>
+                        <li><a class="block rounded-lg px-3 py-2 hover:bg-white/10" href="{{ url_for('shop.limited') }}">Limited Drops</a></li>
+                        <li><a class="block rounded-lg px-3 py-2 hover:bg-white/10" href="{{ url_for('shop.seasonal') }}">Seasonal</a></li>
+                        <li><a class="block rounded-lg px-3 py-2 hover:bg-white/10" href="{{ url_for('shop.category', slug='earrings') }}">Earrings</a></li>
+                        <li><a class="block rounded-lg px-3 py-2 hover:bg-white/10" href="{{ url_for('shop.category', slug='trays') }}">Trays</a></li>
+                        <li><a class="block rounded-lg px-3 py-2 hover:bg-white/10" href="{{ url_for('shop.category', slug='ashtrays') }}">Ashtrays</a></li>
+                        <li><a class="block rounded-lg px-3 py-2 hover:bg-white/10" href="{{ url_for('shop.category', slug='dominoes') }}">Dominoes</a></li>
+                        <li><a class="block rounded-lg px-3 py-2 hover:bg-white/10" href="{{ url_for('shop.category', slug='bottle-openers') }}">Bottle Openers</a></li>
+                        <li><a class="block rounded-lg px-3 py-2 hover:bg-white/10" href="{{ url_for('shop.category', slug='wearables') }}">Wearables</a></li>
+                    </ul>
+                </details>
+                <a class="block rounded-lg px-3 py-2 hover:bg-white/10" href="{{ url_for('custom.how_it_works') }}">Custom</a>
+                <a class="block rounded-lg px-3 py-2 hover:bg-white/10" href="{{ url_for('media.videos') }}">Join Me</a>
+                <a class="block rounded-lg px-3 py-2 hover:bg-white/10" href="{{ url_for('main.about') }}">About</a>
+                <a class="block rounded-lg px-3 py-2 hover:bg-white/10" href="{{ url_for('main.visit') }}">Visit Us</a>
+                <a class="block rounded-lg px-3 py-2 hover:bg-white/10" href="{{ url_for('main.faq') }}">FAQ</a>
+                <div class="grid grid-cols-2 gap-2 pt-2">
+                    <a class="rounded-lg border border-white/10 px-3 py-2 text-center hover:bg-white/10" href="{{ url_for('shop.search') }}">Search</a>
+                    <a class="rounded-lg border border-white/10 px-3 py-2 text-center hover:bg-white/10" href="{{ url_for('checkout.checkout_view') }}">Checkout</a>
+                </div>
             </div>
         </nav>
     </header>
 
-    <!-- Main content -->
-    <main id="main" tabindex="-1">
+    <main id="main">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+          <div class="mx-auto max-w-2xl px-4 pt-6">
+            <div class="space-y-2">
+              {% for category, message in messages %}
+              <div class="rounded-xl border border-white/10 bg-white/10 px-4 py-3 text-sm text-white/90">
+                <span class="font-medium text-accent-400">{{ category|title }}:</span>
+                <span class="ml-1">{{ message }}</span>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
+        {% endwith %}
         {% block content %}{% endblock %}
     </main>
 
-    <!-- Footer -->
-    <footer class="mt-24 border-t border-slate-200 bg-white">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-            <div class="grid gap-10 md:grid-cols-2">
-                <div>
-                    <h3 class="text-lg font-semibold">Stay in the loop</h3>
-                    <p class="mt-2 text-slate-600">Get drop announcements and local pop-up dates.</p>
-                    <form class="mt-4 flex gap-3" action="{{ url_for('main.subscribe') }}" method="post">
-                        <label for="email" class="sr-only">Email</label>
-                        <input id="email" name="email" type="email" required placeholder="you@example.com" class="flex-1 rounded-lg border border-slate-300 px-3 py-2" />
-                        <button class="rounded-lg bg-slate-900 px-5 py-2 text-white hover:bg-slate-800">Subscribe</button>
-                    </form>
+    <footer class="mt-24 border-t border-white/10 bg-base-900">
+        <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+            <div class="grid gap-10 lg:grid-cols-4">
+                <div class="space-y-4">
+                    <a href="{{ url_for('main.home') }}" class="flex items-center gap-3">
+                        <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="Sam's Nik Naks" class="h-8 w-8" />
+                        <span class="font-semibold tracking-wide">Sam's Nik Naks</span>
+                    </a>
+                    <p class="text-sm text-white/70 max-w-xs">Custom-made resin reflections across earrings, trays, ashtrays, dominoes, bottle openers, and wearables.</p>
+                    <p class="text-xs text-white/50">© <span data-year></span> Sam's Nik Naks</p>
                 </div>
-                <div class="md:text-right">
-                    <nav class="space-x-4 text-sm">
-                        <a class="hover:underline" href="{{ url_for('main.privacy') }}">Privacy</a>
-                        <a class="hover:underline" href="{{ url_for('main.returns') }}">Returns</a>
-                        <a class="hover:underline" href="{{ url_for('main.reviews') }}">Reviews</a>
-                    </nav>
-                    <p class="mt-4 text-sm text-slate-500">© {{ current_year|default(2025) }} Sam's Nik Naks</p>
+                <div>
+                    <h3 class="text-sm font-semibold uppercase tracking-[0.2em] text-white/60">Shop</h3>
+                    <ul class="mt-4 space-y-2 text-sm text-white/80">
+                        <li><a class="hover:text-accent-400 transition" href="{{ url_for('shop.list_products') }}">All Products</a></li>
+                        <li><a class="hover:text-accent-400 transition" href="{{ url_for('shop.limited') }}">Limited Drops</a></li>
+                        <li><a class="hover:text-accent-400 transition" href="{{ url_for('shop.category', slug='earrings') }}">Earrings</a></li>
+                        <li><a class="hover:text-accent-400 transition" href="{{ url_for('shop.category', slug='trays') }}">Trays</a></li>
+                        <li><a class="hover:text-accent-400 transition" href="{{ url_for('shop.category', slug='ashtrays') }}">Ashtrays</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold uppercase tracking-[0.2em] text-white/60">Support</h3>
+                    <ul class="mt-4 space-y-2 text-sm text-white/80">
+                        <li><a class="hover:text-accent-400 transition" href="{{ url_for('main.care') }}">Care Guide</a></li>
+                        <li><a class="hover:text-accent-400 transition" href="{{ url_for('main.faq') }}">FAQ</a></li>
+                        <li><a class="hover:text-accent-400 transition" href="{{ url_for('main.reviews_page') }}">Reviews</a></li>
+                        <li><a class="hover:text-accent-400 transition" href="{{ url_for('main.contact') }}">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold uppercase tracking-[0.2em] text-white/60">Policies</h3>
+                    <ul class="mt-4 space-y-2 text-sm text-white/80">
+                        <li><a class="hover:text-accent-400 transition" href="{{ url_for('main.shipping_policy') }}">Shipping</a></li>
+                        <li><a class="hover:text-accent-400 transition" href="{{ url_for('main.returns_policy') }}">Returns</a></li>
+                        <li><a class="hover:text-accent-400 transition" href="{{ url_for('main.privacy_policy') }}">Privacy</a></li>
+                        <li><a class="hover:text-accent-400 transition" href="{{ url_for('main.terms_policy') }}">Terms</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-10 flex flex-col gap-4 border-t border-white/10 pt-6 text-xs text-white/60 sm:flex-row sm:items-center sm:justify-between">
+                <div class="flex items-center gap-4">
+                    <a href="#" class="rounded-full border border-white/10 p-2 hover:bg-white/10 transition" aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4"><path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm0 2a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H7zm5 3a5 5 0 110 10 5 5 0 010-10zm6-1a1 1 0 110 2 1 1 0 010-2z"/></svg>
+                    </a>
+                    <a href="#" class="rounded-full border border-white/10 p-2 hover:bg-white/10 transition" aria-label="TikTok">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4"><path d="M17 2h3a7 7 0 01-7 7v7a5 5 0 11-5-5 5 5 0 014 2.1V2h5z"/></svg>
+                    </a>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <a class="text-white/60 hover:text-accent-400" href="{{ url_for('main.local_page', slug='harrisburg') }}">Harrisburg</a>
+                    <a class="text-white/60 hover:text-accent-400" href="{{ url_for('main.local_page', slug='camp-hill') }}">Camp Hill</a>
+                    <a class="text-white/60 hover:text-accent-400" href="{{ url_for('main.local_page', slug='mechanicsburg') }}">Mechanicsburg</a>
+                    <a class="text-white/60 hover:text-accent-400" href="{{ url_for('main.local_page', slug='carlisle') }}">Carlisle</a>
                 </div>
             </div>
         </div>
     </footer>
 
-    <script>
-        (function () {
-            const toggle = document.getElementById('mobileToggle');
-            if (!toggle) return;
-            const menu = document.getElementById('primary-menu');
-            const iconOpen = document.getElementById('iconOpen');
-            const iconClose = document.getElementById('iconClose');
-            toggle.addEventListener('click', function () {
-                const isHidden = menu.classList.contains('hidden');
-                menu.classList.toggle('hidden');
-                iconOpen.classList.toggle('hidden', !isHidden);
-                iconClose.classList.toggle('hidden', isHidden);
-                const expanded = !isHidden;
-                toggle.setAttribute('aria-expanded', String(expanded));
-            });
-        })();
-    </script>
-
+    <script src="{{ url_for('static', filename='js/interactions.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/filters.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/cart.js') }}" defer></script>
     {% block scripts_extra %}{% endblock %}
 </body>
 </html>
